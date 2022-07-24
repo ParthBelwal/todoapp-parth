@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Posts</title>
+    <style>
+        body {
+    font-family: "Lato", sans-serif;
+}
+.main-head{
+    height: 150px;
+    background: #FFF;  
+}
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.main {
+    padding: 0px 10px;
+}
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 30%; 
+    }
+
+    .sidenav{
+        width: 30%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+    .open{
+      width: 100%;
+      height: 50px;
+      border-radius: 10px;
+      border:#000 solid 2px;
+      margin:2% 0%;
+    }
+    .open:hover{
+      background-color: #000;
+      color: #FFF;
+      cursor: pointer;
+    }
+    .login-form{
+        margin-top: 20%;
+        
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+
+.createPost{
+    margin-top: 10%;
+    margin-left: 3%;
+    width: 100%;
+}
+
+.login-main-text{
+    margin-top: 40%;
+    padding: 60px;
+    color: #fff;
+    transform: rotate(270deg);
+}
+.open{
+      width: 80%;
+      height: 50px;
+      border-radius: 10px;
+      border:#000 solid 2px;
+      margin:2% 0%;
+    }
+    
+    .open:hover{
+      background-color: #000;
+      color: #FFF;
+      cursor: pointer;
+    }
+.del:hover{
+    background-color: #FFF;
+    color: #000;
+    border: #000 solid 2px; 
+}
+.del{
+    height: 50px;
+    width: 15%;
+    border-radius: 10px;
+}
+.btn-black{
+    margin-top: 10px;
+    background-color: #000 !important;
+    color: #fff;
+}
+.posts{
+    width: 200%;
+    margin: 4% 0%;
+    padding: 10%;
+    border: gray solid 2px;
+    border-radius: 10px;
+}
+.author{
+    color: gray;
+}
+.navbar{
+    border-bottom: gray solid 2px;
+}
+.form-control{
+    width: 80%;
+}
+}
+    </style>
+</head>
+<body>
+
+<div class="sidenav">
+         <div class="login-main-text">
+            <h1><%=teamview%> Team <br> Posts</h1>
+         </div>
+      </div>
+      <div class="main">
+        <div class="navbar"><h2>Hello <%=user%></h2> 
+           <span> <a href="/profile"><button type="button" class="btn btn-secondary nabbutton ">Profile</button></a>
+            <a href="/teams"><button type="button" class="btn btn-secondary nabbutton team">Teams</button></a></span>
+           </div>
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+                <div class="postp">
+                    <%for(var i=0;i<vposts.length;i++){%><div class="posts">
+                    <h2><%= vposts[i].title %></h2><h4><span class="author"> - <%= vauthors[i] %></span></h4><br><h4><%= vposts[i].content %></h3><br><h5>Comments :</h5><br>
+                        <% for(var j=0;j<vcomment.length;j++){%>
+                        <% if(vcomment[j].postid===vposts[i].id){%>
+                            <h6><span> <%= vcomment[j].content %><span class="author"> - <%= vcomauthor[j] %></span></span></h6><br>
+                           <%}}%>
+                        <form action="/comment" method="post">
+                        <label>Add Comment</label>
+                     <input type="text" name="comment"  class="form-control" placeholder="Your Comment">
+                      <button type="submit" name="pid" value="<%= vposts[i].id %>" class="btn-black btn">Add Comment</button>
+                     </form></div>
+                       <%}%>
+                     </div>
+                      
+                       </div>
+                     </div>
+                         <div class="createPost"><h2>Create New Post</h2>
+                        <form action="/createpost" method="post">
+                          <div class="form-group">
+                            <label>Post Title</label>
+                            <input type="text" name="title" required class="form-control" placeholder="Task Heading">
+                         </div>
+                          <div class="form-group">
+                          <label>Content</label>
+                          <input type="text" name="content"  class="form-control" placeholder="Task Details">
+                           </div>
+                          <button type="submit" class="open">Create</button>
+                           </form></div>
+               
+             </div>
+         </div>
+      </div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Profile</title>
+    <style>
+        body {
+    font-family: "Lato", sans-serif;
+}
+.main-head{
+    height: 150px;
+    background: #FFF;  
+}
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.main {
+    padding: 0px 10px;
+}
+
+.cred{
+    color: red;
+    margin-left: 5%;
+    padding-top: 20px;
+}
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 20%; 
+    }
+
+    .sidenav{
+        width: 20%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 20%;
+        width: 130%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+
+    .open{
+      width: 80%;
+      height: 50px;
+      border-radius: 10px;
+      border:#000 solid 2px;
+      margin:2% 0%;
+    }
+    .open:hover{
+      background-color: #000;
+      color: #FFF;
+      cursor: pointer;
+    }
+    .posts{
+    width: 150%;
+    margin: 8% 0%;
+    padding: 10%;
+    border: gray solid 2px;
+    border-radius: 10px;
+}
+.login-main-text{
+    margin-top: 90%;
+    padding: 60px;
+    transform: rotate(270deg);
+    color: #fff;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+    transform: rotate(270deg);
+}
+
+.btn-black{
+    background-color: #000 ;
+    color: #fff;
+    border: #000 solid 2px;
+}
+.btn-red{
+    border: red solid 2px;
+    color: red;
+    background-color: #FFF;
+    margin-left: 10px;
+}
+.btn-red:hover{
+    background-color:red ;
+    color: black;
+    
+    border: #000 solid 2px;
+}
+.form-control{
+    height: 50px;
+    width: 80%;
+    
+}
+.del:hover{
+    background-color: #FFF;
+    color: #000;
+    border: #000 solid 2px; 
+}
+.yourposts,.update{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.del{
+    height: 50px;
+    width: 15%;
+    border-radius: 10px;
+}
+.navbar{
+    border-bottom: gray solid 2px;
+}
+.navbar{
+    border-bottom: gray solid 2px;
+}
+
+.creden{
+    size: 90px;
+}}
+    </style>
+</head>
+<body>
+
+<div class="sidenav">
+         <div class="login-main-text">
+            <h1><%=user%>'s Profile</h1>
+         </div>
+      </div>
+      <div class="main">
+        <div class="navbar"><h2>Hello <%=user%></h2> 
+           <span> <a href="/teams"><button type="button" class="btn btn-secondary nabbutton">Teams</button></a>
+            <a href="/"><button type="button" class="btn btn-secondary nabbutton">Logout</button></a></span></div>
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               <div class="yourteam"><h2>Your Teams</h2><br>
+                <form action="/open" method="post">
+                    <%for(var i=0;i<eteams.length;i++){%>
+                <span><button type="submit" name="teamview" value="<%=eteams[i].name %>" class="open"><%= eteams[i].name %></button>
+                <button type="submit" name="delete"  value="<%=eteams[i].id %>" class="btn btn-black del">Delete</button></span>
+                <% }%>
+            </form>
+            <div class="yourposts"><h2>Your Posts</h2>
+                    <%for(var i=0;i<vposts.length;i++){%><div class="posts">
+                    <h2><%= vposts[i].title %></h2><br><h4><%= vposts[i].content %></h3><br><h5>Comments :</h5><br>
+                        <% for(var j=0;j<vcomment.length;j++){%>
+                            <% if(vcomment[j].postid===vposts[i].id){%>
+                                <h6><span> <%= vcomment[j].content %><span class="author"> - <%= vcomauthor[j] %></span></span></h6><br>
+                               <%}}%>
+                    <form action="/comment" method="post">
+                      <button type="submit" name="delete" value="<%= vposts[i].id %>" class="btn-black btn">Delete Post</button>
+                     </form></div>
+                       <%}%>
+             </div>
+             <div class="update"><h2>Update Credentials</h2>
+             <form action="/update" method="post">
+             <div class="form-group">
+                <label>User Name</label>
+                <input type="text" name="username" autocomplete="off" class="form-control" placeholder="John Doe">
+             </div>
+             <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" autocomplete="off" class="form-control" placeholder="abc@gmail.com">
+             </div>
+             <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password"  class="form-control" placeholder="Password">
+             </div><button type="submit" class="btn btn-black">Update</button><button type="submit" value="1" name="delete" class="btn btn-red">Delete Profile</button></form>
+            </div>
+            </div>
+         </div>
+      </div>
+</body>
+</html>

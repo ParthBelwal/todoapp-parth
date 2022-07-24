@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Teams</title>
+    <style>
+        body {
+    font-family: "Lato", sans-serif;
+}
+.main-head{
+    height: 150px;
+    background: #FFF;  
+}
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.main {
+    padding: 0px 10px;
+}
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 30%; 
+    }
+
+    .sidenav{
+        width: 30%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+    .open{
+      width: 80%;
+      height: 50px;
+      border-radius: 10px;
+      border:#000 solid 2px;
+      margin:2% 0%;
+    }
+    .open:hover{
+      background-color: #000;
+      color: #FFF;
+      cursor: pointer;
+    }
+    .login-form{
+        margin-top: 20%;
+        width: 130%;
+        
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+
+.createteam,.jointeam{
+    margin-top: 10%;
+}
+
+.login-main-text{
+    margin-top: 40%;
+    padding: 60px;
+    color: #fff;
+    transform: rotate(270deg);
+}
+
+.btn-black{
+    background-color: #000 ;
+    color: #fff;
+}
+.del:hover{
+    background-color: #FFF;
+    color: #000;
+    border: #000 solid 2px; 
+}
+.del{
+    height: 50px;
+    width: 15%;
+    border-radius: 10px;
+}
+.navbar{
+    border-bottom: gray solid 2px;
+}
+.navbutton{
+    position: fixed;
+    margin-top: 2%;
+    margin-right: 8%;
+}
+}
+
+    </style>
+</head>
+<body>
+
+<div class="sidenav">
+         <div class="login-main-text">
+            <h1>Teams</h1>
+         </div>
+      </div>
+      <div class="main">
+        <div class="navbar"><h2>Hello <%=user%></h2> 
+         <a href="/profile"><button type="button" class="btn btn-secondary nabbutton">Profile</button></a>
+        </div>
+         <div class="col-md-6 col-sm-6">
+            <div class="login-form">
+                <div class="yourteam"><h2>Open Teams</h2><br>
+                    <form action="/open" method="post">
+                        <%for(var i=0;i<eteams.length;i++){%>
+                    <button type="submit" name="teamview" value="<%=eteams[i].name %>" class="open"><%= eteams[i].name %></button>
+                    <% }%>
+                </form>
+                 </div>
+                  <div class="createteam"><h2>Create New team</h2>
+                    <form action="/create" method="post">
+                  <div class="form-group">
+                     <label>Team Name</label>
+                     <input type="text" name="teamname" required class="form-control" placeholder="Backend Team">
+                  </div>
+                  <button type="submit" class="btn btn-black">Create</button></form>
+               </div>
+               
+            </div>
+         </div>
+      </div>
+</body>
+</html>
